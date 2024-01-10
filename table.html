@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table</title>
+
+    <style>
+        .bg {
+            width: 337px;
+            height: 225px;
+            margin-top: 130px;
+            margin-left: 14cm;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(225deg, #89ff00, #010615, #00bcd4, yellow);
+            position: relative;
+        }
+
+        input {
+            height: 33px;
+            width: 270px;
+            border-radius: 10px;
+        }
+
+        button {
+            height: 31px;
+            width: 154px;
+            border-radius: 20px;
+        }
+
+        .bg:before,
+        .bg:after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 2px solid #8f0694;
+            z-index: -1;
+            border-radius: 10px;
+            animation: glow 1s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px #2600ff, 0 0 10px #ff0000, 0 0 15px #ffe600;
+            }
+
+            to {
+                box-shadow: 0 0 15px #1100ff, 0 0 20px #ff0000, 0 0 25px #ffe600;
+            }
+        }
+
+        .body {
+            margin-top: 20px;
+        }
+
+        .result {
+            width: 333px;
+            height: 237px;
+            margin-top: 15px;
+            margin-left: 528px;
+            border: 2px solid black;
+            background: linear-gradient(225deg, #ff4b04, #7c94dd, #ec2d6d, yellow);
+            overflow: hidden; 
+            position: relative;
+        }
+
+        .scroll-container {
+            max-height: 225px;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+      
+    </style>
+</head>
+
+<body>
+    <div class="bg" >
+        <div><br />
+            <input id="a" type="number" placeholder="enter number" />
+        </div><br />
+        <div>
+            <input id="b" type="number" placeholder="table up to" />
+        </div>
+        <div><br />
+            <div>
+                <button onclick="generateTable()"><B>Generate</B></button>
+            </div>
+            <div><br />
+                <button onclick="clearInputs()"><B>Clear</B></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="result">
+        <div class="scroll-container" id="resultDisplay"></div>
+    </div>
+
+    <script>
+        function generateTable() {
+            var num = document.getElementById('a').value;
+            var limit = document.getElementById('b').value;
+            var resultDisplay = document.getElementById('resultDisplay');
+
+            if (num === '' || limit === '') {
+                resultDisplay.textContent = 'Please enter both numbers.';
+                return;
+            }
+
+            var tableResult = '';
+            for (var i = 1; i <= limit; i++) {
+                var product = num * i;
+                tableResult += num + ' x ' + i + ' = ' + product + '<br>';
+            }
+
+            resultDisplay.innerHTML = 'Multiplication Table:<br><br>' + tableResult;
+        }
+
+        function clearInputs() {
+            document.getElementById('a').value = '';
+            document.getElementById('b').value = '';
+            document.getElementById('resultDisplay').textContent = 'Display result';
+        }
+
+        function scrollResult() {
+            var resultContainer = document.getElementById('resultDisplay');
+            resultContainer.scrollTop += 20; 
+        }
+    </script>
+</body>
+
+</html>
